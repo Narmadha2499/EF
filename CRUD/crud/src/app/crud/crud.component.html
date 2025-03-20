@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <h2>Employee List</h2>
+  <!-- <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+  <title>Document</title>
+</head>
+
+  <!-- Employee List -->
+  <div *ngIf="!showCreateForm && !showEditForm">
+    <h2>Employee List</h2>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let emp of employees; let i = index">
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.department }}</td>
+        <td>{{ emp.salary }}</td>
+        <td>
+          <button (click)="editEmployee(i)">Edit</button>
+          <button (click)="deleteEmployee(i)">Delete</button>
+        </td>
+      </tr>
+    </table>
+    <button (click)="addNew()">Add New</button>
+  </div>
+
+  <!-- Employee Creation Form -->
+  <div *ngIf="showCreateForm">
+    <h2>Create Employee</h2>
+    <form (ngSubmit)="createEmployee()">
+      <label>ID:</label>
+      <input type="number" [(ngModel)]="newEmployee.id" name="id" required>
+
+      <label>Name:</label>
+      <input type="text" [(ngModel)]="newEmployee.name" name="name" required>
+
+      <label>Department:</label>
+      <input type="text" [(ngModel)]="newEmployee.department" name="department" required>
+
+      <label>Salary:</label>
+      <input type="number" [(ngModel)]="newEmployee.salary" name="salary" required>
+
+      <button type="submit">Create Employee</button>
+    </form>
+    <button (click)="showList()">Back to List</button>
+  </div>
+
+  <!-- Employee Edit Form -->
+  <div *ngIf="showEditForm">
+    <h2>Edit Employee</h2>
+    <form (ngSubmit)="updateEmployee()">
+      <label>ID:</label>
+      <input type="number" [(ngModel)]="newEmployee.id" name="id" required readonly>
+
+      <label>Name:</label>
+      <input type="text" [(ngModel)]="newEmployee.name" name="name" required>
+
+      <label>Department:</label>
+      <input type="text" [(ngModel)]="newEmployee.department" name="department" required>
+
+      <label>Salary:</label>
+      <input type="number" [(ngModel)]="newEmployee.salary" name="salary" required>
+
+      <button type="submit">Update Employee</button>
+    </form>
+    <button (click)="showList()">Back to List</button>
+  </div>
+</html>
